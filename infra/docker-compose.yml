@@ -1,7 +1,5 @@
 version: "3.7"
 
-#https://www.youtube.com/watch?v=9sAg7RooEDc
-
 services:
 
   mongo:
