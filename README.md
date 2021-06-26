@@ -14,21 +14,29 @@ TODO
 
 ## Running
 
-Standalone
-Multiples instances of producers, consumers and a loadbalance instance
-Client Page
+* Standalone
+* Multiples instances of producers, consumers and a loadbalance instance
+* Client Page: localhost:3000
 
-chmod +x ./docker/run.sh
-</br>
-./run.sh
+`chmod +x ./docker/run.sh`
+`./run.sh`
 
 TODO
 
 ### Project Structure
 
-./docker
-./infra
-./producer
-./consumer
+* ./docker
+TODO
+
+* ./infra
+TODO
+
+* ./producer
+TODO
+
+* ./consumer
+TODO
+
+### Inspiration
 
 TODO
