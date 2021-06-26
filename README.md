@@ -1,11 +1,11 @@
-# Postgres x RabbitMQ x MongoDB x Docker
+# Postgres x RabbitMQ x MongoDB
 
 This project was bootstrapped with:
-- [Node v14](https://nodejs.org);
-- [NestJS](https://reactjs.org);
-- [RabbitMQ](https://reactjs.org);
-- [MongoDB](https://reactjs.org);
-- [Docker](https://reactjs.org);
+- [Node](https://nodejs.org/en/docs/);
+- [NestJS](https://docs.nestjs.com/);
+- [RabbitMQ](https://www.rabbitmq.com/documentation.html);
+- [MongoDB](https://docs.mongodb.com/manual/);
+- [Docker](https://docs.docker.com/);
 
 ## Project Goal
 
