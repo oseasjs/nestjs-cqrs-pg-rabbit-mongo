@@ -1,0 +1,79 @@
+version: "3.7"
+
+#https://www.youtube.com/watch?v=9sAg7RooEDc
+
+services:
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    networks:
+      - mongo-compose-network
+
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    ports:
+      - 18081:8081
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: admin
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+    links:
+      - mongo
+    networks:
+      - mongo-compose-network
+
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=postgres
+    ports:
+      - "15432:5432"
+    networks:
+      - postgres-network
+
+  pgadmin:
+    container_name: pgadmin
+    hostname: pgadmin
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "15433:80"
+    networks:
+      - postgres-network
+    depends_on:
+      - postgres
+ 
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8.9-management
+    tty: true
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: always
+    
+networks: 
+  mongo-compose-network:
+    driver: bridge
+  postgres-network:
+    driver: bridge

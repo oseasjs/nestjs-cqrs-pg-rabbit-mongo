@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div style="margin-left: 20px;;">
+
+  <h2>User Generator</h2>
+
+  <form action="#">
+    <label for="fcount">Total Users (max 5000):</label><br>
+    <input type="text" id="fcount" name="fcount" value="10" autocomplete="off"><br><br>  
+    <input type="submit" value="Submit" onclick="return generateUsers();" />
+  </form> 
+
+  <br/>
+  <br/>
+  <div id="countUsers" ></div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+  function generateUsers() {
+      let total = +document.getElementById('fcount').value;
+
+      if (total > 5000) {
+        alert('Max user allowed is 5000');
+        return false;
+      }
+
+      document.getElementById('countUsers').innerHTML = `Fetching ${total} users from https://randomuser.me`;
+
+      getUserRandom(total);
+      return false;
+  };
+
+  const getUserRandom = async (total) => {   
+    
+    const response = await fetch('https://randomuser.me/api/?results=' + total);
+    await response
+      .json()
+      .then(async users => {
+        let count = 0;
+        users.results.forEach(user => {
+
+          fetch('http://localhost:8080/api/users?seed=' + users.info.seed, {
+            method: 'POST',
+            body: JSON.stringify(user),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(() => {
+            count++;
+            document.getElementById('countUsers').innerHTML = 'Total Users generated: ' + count + ' of ' + total;
+          })
+          .catch(e => {
+            console.log(e);
+            throw e;
+          })          
+          
+        });
+
+      })
+      .catch(e => {
+        console.log(e);
+        throw e;
+      });
+    
+  }
+
+</script>
