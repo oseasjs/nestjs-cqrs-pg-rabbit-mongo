@@ -101,15 +101,15 @@ order by 1, 2
 - NestJS documentation;
 &nbsp;
 - Load Balance with Docker-compose (Hussein Nasser, very funny guy):
-https://www.youtube.com/watch?v=9sAg7RooEDc
+  - https://www.youtube.com/watch?v=9sAg7RooEDc
 &nbsp;
 - Static page with NestJS: 
-https://github.com/nestjs/nest/tree/master/sample/24-serve-static
+  - https://github.com/nestjs/nest/tree/master/sample/24-serve-static
 &nbsp;
 - NestJS with RabbitMQ: 
-https://github.com/jmaicaaan/tutorial-nestjs-rabbitmq
-https://github.com/ikhvost/nestjs-rabbitmq-microservices-sample
+  - https://github.com/jmaicaaan/tutorial-nestjs-rabbitmq
+  - https://github.com/ikhvost/nestjs-rabbitmq-microservices-sample
 &nbsp;
 - Postgres and PGAdmin from Docker-Compose:
-https://renatogroffe.medium.com/postgresql-pgadmin-4-docker-compose-montando-rapidamente-um-ambiente-para-uso-55a2ab230b89
-https://github.com/khezen/compose-postgres
+  - https://renatogroffe.medium.com/postgresql-pgadmin-4-docker-compose-montando-rapidamente-um-ambiente-para-uso-55a2ab230b89
+  - https://github.com/khezen/compose-postgres
