@@ -63,7 +63,7 @@ To run this file, just got to ./docker directory and run:
 - `./run.sh`
 
 
-### Project Structure
+## Project Structure
 
 _./infra_
 * docker-compose file to install services required by this project: postgres, pgadmin, mongo, mongo-express and rabbitmq;
@@ -79,7 +79,7 @@ _./consumer_
 * NodeJS service that consume messages from rabbitmq, save a user on MongoDB and notify producer service to create a SYNCRONIZE event;
 * Do not provide any endpoint;
 
-### Performance Statistics
+## Performance Statistics
 
 Userful SQL Query to extract some perfomance statistics from Postgre DB:
 
@@ -94,7 +94,7 @@ order by 1, 2
 ```
 
 
-### Inspiration
+## Inspiration
 
 - Personal professional experience with Java and Node microservices projects;
 <br/>
