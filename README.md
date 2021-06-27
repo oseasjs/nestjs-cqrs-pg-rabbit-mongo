@@ -101,7 +101,7 @@ order by 1, 2
 - NestJS documentation;
 &nbsp;
 - Load Balance with Docker-compose (Hussein Nasser, very funny guy):
- https://www.youtube.com/watch?v=9sAg7RooEDc
+https://www.youtube.com/watch?v=9sAg7RooEDc
 &nbsp;
 - Static page with NestJS: 
 https://github.com/nestjs/nest/tree/master/sample/24-serve-static
