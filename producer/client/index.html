@@ -1,41 +1,53 @@
 <!DOCTYPE html>
-<html>
-<body>
 
-<div style="margin-left: 20px;;">
+<!-- <html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>  
+  <body>
 
-  <h2>User Generator</h2>
+    <div class="container-fluid">
 
-  <form action="#">
-    <label for="fcount">Total Users (max 5000):</label><br>
-    <input type="text" id="fcount" name="fcount" value="10" autocomplete="off"><br><br>  
-    <input type="submit" value="Submit" onclick="return generateUsers();" />
-  </form> 
+      <h2>User Generator</h2>
 
-  <br/>
-  <br/>
-  <div id="countUsers" ></div>
+      <div class="login-form">
 
-</div>
+        <form>
+          <div class="mb-3">
+            <label for="fcount" class="form-label" >Total Users (max 5000):</label>
+            <input type="text" id="fcount" name="fcount" value="10" autocomplete="off" class="form-control" style="width: 100px;">
+          </div>   
+          <button class="btn btn-primary">GO!</button> 
+        </form> 
 
-</body>
+        <br/>
+        <br/>
+        <div id="countUsers" ></div>
+
+      </div>
+
+    </div>
+
+  </body>
 </html>
 
 <script>
 
-  function generateUsers() {
-      let total = +document.getElementById('fcount').value;
+  $("button").click(function() {
 
-      if (total > 5000) {
-        alert('Max user allowed is 5000');
-        return false;
-      }
-
-      document.getElementById('countUsers').innerHTML = `Fetching ${total} users from https://randomuser.me`;
-
-      getUserRandom(total);
+    $('#countUsers').html('');
+    let total = $("#fcount" ).val();
+    if (total > 5000) {
+      alert('Max user allowed is 5000');
       return false;
-  };
+    }
+
+    $('#countUsers').html(`Fetching '${total}' users from https://randomuser.me`);
+
+    getUserRandom(total);
+    return false;
+  });  
 
   const getUserRandom = async (total) => {   
     
@@ -72,4 +84,135 @@
     
   }
 
-</script>
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Postgres | RabbitMQ | Mongo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <style>
+  .login-form {
+      width: 340px;
+      margin: 50px auto;
+      font-size: 15px;
+  }
+  .login-form form {
+      margin-bottom: 15px;
+      background: #f7f7f7;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+  }
+  .login-form h2 {
+      margin: 0 0 15px;
+  }
+  .form-control, .btn {
+      min-height: 38px;
+      border-radius: 2px;
+  }
+  .btn {        
+      font-size: 15px;
+      font-weight: bold;
+  }
+  </style>
+  </head>
+  <body>
+  <div class="login-form">
+      <form>
+          <h2 class="text-center">User Generator</h2>
+          <div class="form-group">
+            <label for="fcount" class="form-label">Total Users (max 5000)</label>
+            <input id="fcount" name="fcount" 
+                type="text" class="form-control" 
+                placeholder="Set value less than 5000" required
+                value="10" autocomplete="off" />
+          </div>          
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Generate</button>
+          </div>          
+      </form>
+      <div id="countUsers" ></div>
+      <div class="progress"> 
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div> 
+      </div>
+  </div>
+  
+  </body>
+
+  <script>
+
+    $("button").click(function() {
+  
+      $('#countUsers').html('');
+      const total = $("#fcount" ).val();
+      if ( total > 5000) {
+        alert('Max user allowed is 5000');
+        return false;
+      }
+  
+      $('#countUsers').html(`Fetching '${total}' users from https://randomuser.me`);
+      updateProgressPercentage(0);
+
+      getUserRandom(total);
+      return false;
+    });  
+  
+    const getUserRandom = async (total) => {   
+      
+      const response = await fetch('https://randomuser.me/api/?results=' + total);
+      await response
+        .json()
+        .then(async users => {
+          let count = 0;
+          users.results.forEach(user => {
+  
+            fetch('http://localhost:8080/api/users?seed=' + users.info.seed, {
+              method: 'POST',
+              body: JSON.stringify(user),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(() => {
+              count++;
+              $('#countUsers').html('Total Users generated: ' + count + ' of ' + total);
+
+              const percentComplete = (count / total) * 100;
+              updateProgressPercentage(percentComplete);
+
+            })
+            .catch(e => {
+              console.log(e);
+              throw e;
+            })          
+            
+          });
+  
+        })
+        .catch(e => {
+          console.log(e);
+          throw e;
+        });
+      
+    }
+
+    const updateProgressPercentage = async (percentage) => {  
+      $("div.progress > div.progress-bar").css({ "width": percentage + "%" });
+    }
+  
+  </script>
