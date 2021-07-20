@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
-const DB_HOST = (process.env.DB_HOST) ? process.env.DB_HOST : 'localhost';
+const DB_HOST = (process.env.DOCKER_HOST) ? process.env.DOCKER_HOST : 'localhost';
 
 export const PostgresTypeOrmConfig : TypeOrmModuleOptions = {
 

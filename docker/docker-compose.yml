@@ -1,13 +1,13 @@
-version : '3'
+version : '3.3'
 
 services:
     lb:
         image: haproxy
         ports:
-            - "8080:8080"
+            - 8080:8080
         volumes:
             - ./haproxy:/usr/local/etc/haproxy
-        network_mode: host
+
 
     pg-rabbit-mongo-producer-1:
         image: pg-rabbit-mongo-producer
@@ -16,7 +16,7 @@ services:
         environment:
             - APPID=producer-1
             - PORT=3101
-        network_mode: host
+            - DOCKER_HOST=host.docker.internal
 
     pg-rabbit-mongo-producer-2:
         image: pg-rabbit-mongo-producer
@@ -25,7 +25,7 @@ services:
         environment:
             - APPID=producer-2
             - PORT=3102
-        network_mode: host
+            - DOCKER_HOST=host.docker.internal
 
     pg-rabbit-mongo-producer-3:
         image: pg-rabbit-mongo-producer
@@ -34,22 +34,22 @@ services:
         environment:
             - APPID=producer-3
             - PORT=3103
-        network_mode: host
+            - DOCKER_HOST=host.docker.internal
 
-    pg-rabbit-mongo-consumer0:
-        image: pg-rabbit-mongo-consumer
-        environment:
-            - APPID=consumer-0
-        network_mode: host
-
-    pg-rabbit-mongo-consumer-1:
+    pg-rabbit-mongo-consumer1:
         image: pg-rabbit-mongo-consumer
         environment:
             - APPID=consumer-1
-        network_mode: host
+            - DOCKER_HOST=host.docker.internal
 
     pg-rabbit-mongo-consumer-2:
         image: pg-rabbit-mongo-consumer
         environment:
             - APPID=consumer-2
-        network_mode: host
+            - DOCKER_HOST=host.docker.internal
+
+    pg-rabbit-mongo-consumer-3:
+        image: pg-rabbit-mongo-consumer
+        environment:
+            - APPID=consumer-3
+            - DOCKER_HOST=host.docker.internal
