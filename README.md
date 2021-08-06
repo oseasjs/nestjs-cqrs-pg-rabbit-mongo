@@ -3,20 +3,22 @@
 This project was bootstrapped with:
 - [Node](https://nodejs.org/en/docs/);
 - [NestJS](https://docs.nestjs.com/);
+- [Postgres](https://www.postgresql.org/docs/);
 - [RabbitMQ](https://www.rabbitmq.com/documentation.html);
 - [MongoDB](https://docs.mongodb.com/manual/);
 - [Docker](https://docs.docker.com/);
+- [Docker-Compose](https://docs.docker.com/compose/);
 
 ## Project Goal
 
-The main goal of the project is validate the performance and scalabilty of a _NodeJS_ service using microservice architecture.
-This project have _syncronous_ (producer) and _asyncronous_ (consumer) calls and create data on a normalized DB _(Postgres)_ and on a denormalized DB _(MongoDB)_;
-For asyncronous call, is being used a message broker _(RabbitMQ)_;
-As an example, will be used some users created by a public API _(randomuser.me)_;
-The perfomance and scalability will be validated running multiples service intances _(Docker)_ with a load balance service in front of them;
+The main goal of the project is validate the performance and scalabilty of a _NodeJS_ service using microservice architecture and CQRS and Event Source principles with a message broker __RabbitMQ__.
+This project have __syncronous__ (producer) and __asyncronous__ (consumer) calls and create data on a normalized DB _(Postgres)_ and on a denormalized DB __(MongoDB)__;
+For asyncronous call, is being used a message broker __(RabbitMQ)__;
+As an example, will be used some users created by a public API __(randomuser.me)__;
+The perfomance and scalability will be validated running multiples service intances __(Docker)__ with a load balance service in front of them;
 A static page will be used to fetch a list of users from public API and submit it to this project to be persisted;
 
-##### The user persistence strategy will be folow the flow below:
+##### The user persistence strategy will be follow the flow as below:
 * A static page will call random users to get a list o users;
 * For each user, the static page will call the producer endpoint to persisted it on Postgres;
 * After persist the user, a message will be sended to a rabbitmq queue;
