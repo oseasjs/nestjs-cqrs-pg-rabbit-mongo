@@ -11,7 +11,7 @@ This project was bootstrapped with:
 
 ## Project Goal
 
-The main goal of the project is validate the performance and scalabilty of a _NodeJS_ service using microservice architecture and CQRS and Event Source principles with a message broker __RabbitMQ__.
+The main goal of the project is validate the performance and scalabilty of a _NodeJS_ service using microservice architecture and __CQRS__ and __Event Source__ principles with a message broker __RabbitMQ__.
 This project have __syncronous__ (producer) and __asyncronous__ (consumer) calls and create data on a normalized DB _(Postgres)_ and on a denormalized DB __(MongoDB)__;
 For asyncronous call, is being used a message broker __(RabbitMQ)__;
 As an example, will be used some users created by a public API __(randomuser.me)__;
